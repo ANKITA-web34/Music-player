@@ -23,7 +23,7 @@ const songs = [
         displayName: 'Good Night, Disco Queen',
         artist: 'Jacinto design',
     },
-    {   name: 'metric-1',
+    {   name: 'jacinto-5',
         displayName: 'Front Row (Remix)',
         artist: 'Metric/Jacinto design',
     },
@@ -40,6 +40,7 @@ function playSong() {
     music.play();
 }
 
+//pasue
 function pauseSong() {
     isPlaying = false;
     playBtn.classList.replace('fa-pause', 'fa-play');
@@ -51,6 +52,7 @@ playBtn.addEventListener('click', () =>
     (isPlaying ? pauseSong() : playSong())
 );
 
+//Update dom
 function loadSong(song) {
     title.textContent = song.displayName;
     artist.textContent = song.artist;
@@ -58,5 +60,30 @@ function loadSong(song) {
     image.src = `img/${song.name}.jpg`;
 }
 
+//current song
+let songIndex = 0;
+
+function prevSong() {
+    songIndex--;
+    if(songIndex < 0) {
+        songIndex = songs.length -1;
+    }
+    loadSong(songs[songIndex]);
+   playSong();
+}
+
+//nextSong
+function nextSong() {
+    songIndex++;
+    if(songIndex > songs.length -1) {
+        songIndex = 0;
+    }
+    loadSong(songs[songIndex]);
+   playSong();
+}
+
 //on load
-loadSong(songs[0]);
+loadSong(songs[songIndex]);
+
+prevBtn.addEventListener('click', prevSong);
+nextBtn.addEventListener('click', nextSong);
